@@ -27,9 +27,11 @@ describe('Browser: WindowProgress', function() {
 
       beforeEach(function() {
         this.setProgressBarSpy = m.sinon.spy();
+        this.setTitleSpy = m.sinon.spy();
 
         windowProgress.currentWindow = {
-          setProgressBar: this.setProgressBarSpy
+          setProgressBar: this.setProgressBarSpy,
+          setTitle: this.setTitleSpy
         };
       });
 
@@ -60,6 +62,16 @@ describe('Browser: WindowProgress', function() {
           m.chai.expect(function() {
             windowProgress.set(-1);
           }).to.throw('Invalid percentage: -1');
+        });
+
+        it('should set the flashing title', function() {
+          windowProgress.set(100, 'write');
+          m.chai.expect(this.setTitleSpy).to.have.been.calledWith('Etcher – Flashing 100%');
+        });
+
+        it('should set the validating title', function() {
+          windowProgress.set(100, 'check');
+          m.chai.expect(this.setTitleSpy).to.have.been.calledWith('Etcher – Validating 100%');
         });
 
       });
