@@ -18,6 +18,7 @@
 
 const m = require('mochainon');
 const windowProgress = require('../../../lib/gui/os/window-progress');
+const packageJSON = require('../../../package.json');
 
 describe('Browser: WindowProgress', function() {
 
@@ -66,12 +67,12 @@ describe('Browser: WindowProgress', function() {
 
         it('should set the flashing title', function() {
           windowProgress.set(100, 'write');
-          m.chai.expect(this.setTitleSpy).to.have.been.calledWith('Etcher – Flashing 100%');
+          m.chai.expect(this.setTitleSpy).to.have.been.calledWith(`${packageJSON.displayName} \u2013 Flashing 100%`);
         });
 
         it('should set the validating title', function() {
           windowProgress.set(100, 'check');
-          m.chai.expect(this.setTitleSpy).to.have.been.calledWith('Etcher – Validating 100%');
+          m.chai.expect(this.setTitleSpy).to.have.been.calledWith(`${packageJSON.displayName} \u2013 Validating 100%`);
         });
 
       });
@@ -81,6 +82,11 @@ describe('Browser: WindowProgress', function() {
         it('should set -1', function() {
           windowProgress.clear();
           m.chai.expect(this.setProgressBarSpy).to.have.been.calledWith(-1);
+        });
+
+        it('should clear the window title', function() {
+          windowProgress.clear();
+          m.chai.expect(this.setTitleSpy).to.have.been.calledWith(packageJSON.displayName);
         });
 
       });
