@@ -1,5 +1,9 @@
 FROM <%= image %>
 
+<% if (architecture == 'armv7hf') { %>
+RUN [ "cross-build-start" ]
+<% } %>
+
 # Setup APT sources
 <% if (architecture == 'i686') { %>
 RUN sed s,ubuntu\.stu\.edu\.tw,archive.ubuntu.com, /etc/apt/sources.list > /tmp/sources.list \
@@ -7,6 +11,9 @@ RUN sed s,ubuntu\.stu\.edu\.tw,archive.ubuntu.com, /etc/apt/sources.list > /tmp/
 <% } %>
 <% if (architecture == 'x86_64') { %>
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise-backports main restricted universe multiverse" >> /etc/apt/sources.list
+<% } %>
+<% if (architecture == 'armv7hf') { %>
+RUN echo "deb http://ftp.debian.org/debian jessie-backports main" >> /etc/apt/sources.list
 <% } %>
 
 # Install dependencies
@@ -35,10 +42,12 @@ RUN apt-get update \
     zip   \
     rpm
 
+<% if (architecture != 'armv7hf') { %>
 # Install a C++11 compiler
 RUN add-apt-repository ppa:ubuntu-toolchain-r/test \
   && apt-get update && apt-get install -y gcc-4.8 g++-4.8 \
   && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
+<% } %>
 
 # NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
@@ -53,3 +62,7 @@ RUN npm install -g uglify-es@3.0.3 electron-installer-debian@0.5.1 electron-inst
 # Python
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
+
+<% if (architecture == 'armv7hf') { %>
+RUN [ "cross-build-end" ]
+<% } %>

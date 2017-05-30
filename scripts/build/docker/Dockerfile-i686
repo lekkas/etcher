@@ -1,9 +1,12 @@
 FROM erwinchang/ubuntu-12.04-32bit-build
 
+
+
 # Setup APT sources
 
 RUN sed s,ubuntu\.stu\.edu\.tw,archive.ubuntu.com, /etc/apt/sources.list > /tmp/sources.list \
   && mv /tmp/sources.list /etc/apt/sources.list
+
 
 
 
@@ -32,10 +35,12 @@ RUN apt-get update \
     zip   \
     rpm
 
+
 # Install a C++11 compiler
 RUN add-apt-repository ppa:ubuntu-toolchain-r/test \
   && apt-get update && apt-get install -y gcc-4.8 g++-4.8 \
   && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
+
 
 # NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
@@ -50,3 +55,5 @@ RUN npm install -g uglify-es@3.0.3 electron-installer-debian@0.5.1 electron-inst
 # Python
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
+
+

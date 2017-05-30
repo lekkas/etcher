@@ -36,6 +36,10 @@ _.each([
   {
     architecture: 'x86_64',
     image: 'ubuntu:12.04'
+  },
+  {
+    architecture: 'armv7hf',
+    image: 'resin/armv7hf-debian-qemu:latest'
   }
 ], (options) => {
   const result = _.template(template)(options);
