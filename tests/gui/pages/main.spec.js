@@ -242,7 +242,7 @@ describe('Browser: MainPage', function() {
           });
 
           settings.set('unmountOnSuccess', true);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('0%');
+          m.chai.expect(controller.getProgressButtonLabel()).to.equal('0% Flashing');
         });
 
         it('should handle percentage == 0, type = write, unmountOnSuccess', function() {
@@ -322,7 +322,7 @@ describe('Browser: MainPage', function() {
           });
 
           settings.set('unmountOnSuccess', true);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('50%');
+          m.chai.expect(controller.getProgressButtonLabel()).to.equal('50% Flashing');
         });
 
         it('should handle percentage == 50, type = write, !unmountOnSuccess', function() {
@@ -338,7 +338,7 @@ describe('Browser: MainPage', function() {
           });
 
           settings.set('unmountOnSuccess', false);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('50%');
+          m.chai.expect(controller.getProgressButtonLabel()).to.equal('50% Flashing');
         });
 
         it('should handle percentage == 50, type = check, unmountOnSuccess', function() {
@@ -354,7 +354,7 @@ describe('Browser: MainPage', function() {
           });
 
           settings.set('unmountOnSuccess', true);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('50% Validating...');
+          m.chai.expect(controller.getProgressButtonLabel()).to.equal('50% Validating');
         });
 
         it('should handle percentage == 50, type = check, !unmountOnSuccess', function() {
@@ -370,7 +370,7 @@ describe('Browser: MainPage', function() {
           });
 
           settings.set('unmountOnSuccess', false);
-          m.chai.expect(controller.getProgressButtonLabel()).to.equal('50% Validating...');
+          m.chai.expect(controller.getProgressButtonLabel()).to.equal('50% Validating');
         });
 
         it('should handle percentage == 100, type = write, unmountOnSuccess', function() {
