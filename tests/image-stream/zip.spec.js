@@ -83,7 +83,7 @@ describe('ImageStream: ZIP', function() {
           },
           hasMBR: true,
           hasGPT: false,
-          partitions: require('./data/images/etcher-test-partitions')
+          partitions: require('./data/images/etcher-test-partitions.json')
         });
       });
     });
