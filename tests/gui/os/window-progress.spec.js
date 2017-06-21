@@ -88,6 +88,21 @@ describe('Browser: WindowProgress', function() {
           m.chai.expect(this.setTitleSpy).to.have.been.calledWith(' \u2013 85% Validating');
         });
 
+        it('should set the starting title', function() {
+          this.state.type = 'write';
+          this.state.percentage = 0;
+          this.state.speed = 0;
+          windowProgress.set(this.state);
+          m.chai.expect(this.setTitleSpy).to.have.been.calledWith(' \u2013 Starting...');
+        });
+
+        it('should set the finishing title', function() {
+          this.state.type = 'write';
+          this.state.percentage = 100;
+          windowProgress.set(this.state);
+          m.chai.expect(this.setTitleSpy).to.have.been.calledWith(' \u2013 Finishing...');
+        });
+
       });
 
       describe('.clear()', function() {
