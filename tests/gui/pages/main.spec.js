@@ -222,6 +222,21 @@ describe('Browser: MainPage', function() {
         m.chai.expect(controller.getProgressButtonLabel()).to.equal('Flash!');
       });
 
+      it('should display the flashing progress', function() {
+        const controller = $controller('FlashController', {
+          $scope: {}
+        });
+
+        flashState.setFlashingFlag();
+        flashState.setProgressState({
+          type: 'write',
+          percentage: 85,
+          eta: 15,
+          speed: 1000
+        });
+        m.chai.expect(controller.getProgressButtonLabel()).to.equal('85% Flashing');
+      });
+
     });
 
   });
